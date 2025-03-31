@@ -1,5 +1,7 @@
 # Git Workflow Guide for Our Rails Project
 
+Welcome to the Rails project. This guide will help you understand the essential Git commands for collaborating with the team effectively.
+
 ---
 
 ## 1. Checking the current branch and pulling the latest changes
