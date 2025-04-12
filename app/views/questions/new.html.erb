@@ -1,0 +1,42 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-lg p-4 rounded-4" style="max-width: 500px; width: 100%;">
+    <h2 class="text-center mb-4 fw-bold text-uppercase text-primary">Just a Few More Details</h2>
+
+    <% if @question.errors.any? %>
+      <div class="alert alert-danger">
+        <h5><%= pluralize(@question.errors.count, "error") %> prohibited this form from being saved:</h5>
+        <ul class="mb-0">
+          <% @question.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with model: @question, url: questions_path, local: true do |form| %>
+      <div class="mb-3">
+        <%= form.label :age, class: "form-label" %>
+        <%= form.number_field :age, class: "form-control", placeholder: "Enter your age", min: 10, max: 100, required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :weight, class: "form-label" %>
+        <%= form.number_field :weight, class: "form-control", placeholder: "Your weight in lbs", min: 50, max: 500, required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :gender, class: "form-label" %>
+        <%= form.select :gender, ['Male', 'Female'], { prompt: "Select Gender" }, class: "form-select", required: true %>
+      </div>
+
+      <div class="mb-4">
+        <%= form.label :goal, class: "form-label" %>
+        <%= form.select :goal, ['Lose weight', 'Gain muscle', 'Maintain weight'], { prompt: "Select Goal" }, class: "form-select", required: true %>
+      </div>
+
+      <div class="d-grid">
+        <%= form.submit "Save and Continue", class: "btn btn-warning btn-lg fw-bold text-white" %>
+      </div>
+    <% end %>
+  </div>
+</div>

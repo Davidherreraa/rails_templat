@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     if @user.save
       start_new_session_for @user
-      redirect_to after_authentication_url, notice: "Welcome! Your account has been created."
+      redirect_to new_question_path, notice: "Welcome! Tell us a bit about yourself."
     else
       render :new, status: :unprocessable_entity
     end

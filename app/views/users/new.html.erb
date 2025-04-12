@@ -1,24 +1,41 @@
-<h1>Sign Up</h1>
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-lg p-4 rounded-4" style="max-width: 500px; width: 100%;">
+    <h2 class="text-center mb-4 fw-bold text-uppercase text-primary">Create Your Gym Account</h2>
 
-<%= form_with model: @user, url: users_path, local: true do |f| %>
-  <div>
-    <%= f.label :email_address %>
-    <%= f.email_field :email_address %>
+    <% if @user.errors.any? %>
+      <div class="alert alert-danger">
+        <h5><%= pluralize(@user.errors.count, "error") %> prevented this account from being created:</h5>
+        <ul class="mb-0">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with model: @user, url: users_path, local: true do |f| %>
+      <div class="mb-3">
+        <%= f.label :email_address, "Email Address", class: "form-label" %>
+        <%= f.email_field :email_address, class: "form-control", placeholder: "you@example.com", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password, class: "form-label" %>
+        <%= f.password_field :password, class: "form-control", placeholder: "Choose a password", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password_confirmation, "Confirm Password", class: "form-label" %>
+        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Repeat your password", required: true %>
+      </div>
+
+      <div class="d-grid">
+        <%= f.submit "Sign Up", class: "btn btn-success btn-lg fw-bold" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-3">
+      <%= link_to "Already have an account? Sign in", new_session_path, class: "text-decoration-none text-muted" %>
+    </div>
   </div>
-
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <div>
-    <%= f.submit "Sign Up" %>
-  </div>
-<% end %>
-
-<%= link_to "Already have an account? Sign in", new_session_path %>
+</div>

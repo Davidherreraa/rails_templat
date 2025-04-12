@@ -1,5 +1,29 @@
-<h1>Welcome to My App</h1>
-<p>This is the homepage.</p>
+<div class="container py-5">
+  <div class="position-relative mb-4 d-flex justify-content-end">
+    <% if current_user %>
+      <%= button_to "Sign Out", sign_out_path, method: :delete, class: "btn btn-outline-danger" %>
+    <% end %>
+  </div>
 
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary">Welcome to FitTrack</h1>
+    <p class="lead text-muted">Track your workouts, stay consistent, and crush your fitness goals 💪</p>
+  </div>
 
+  <div class="row g-4">
+    <% days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] %>
+    <% days_of_week.each do |day| %>
+      <div class="col-md-6 col-lg-4">
+        <%= link_to day_workout_path(day: day), class: "text-decoration-none" do %>
+          <div class="card shadow-sm h-100 hover-shadow border-0">
+            <div class="card-body text-center">
+              <h5 class="card-title fw-semibold text-dark"><%= day %></h5>
+              <p class="card-text text-muted">No workout logged</p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
