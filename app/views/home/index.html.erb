@@ -1,10 +1,17 @@
-<div class="container py-5">
-  <div class="position-relative mb-4 d-flex justify-content-end">
-    <% if current_user %>
-      <%= button_to "Sign Out", sign_out_path, method: :delete, class: "btn btn-outline-danger" %>
-    <% end %>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold" href="#">FitTrack</a>
+    <div class="ms-auto">
+      <% if current_user %>
+        <%= button_to "Sign Out", sign_out_path, method: :delete, class: "btn btn-outline-light btn-sm" %>
+      <% end %>
+    </div>
   </div>
+</nav>
 
+<!-- Main Content -->
+<div class="container py-5">
   <div class="text-center mb-5">
     <h1 class="display-4 fw-bold text-primary">Welcome to FitTrack</h1>
     <p class="lead text-muted">Track your workouts, stay consistent, and crush your fitness goals 💪</p>
@@ -15,9 +22,9 @@
     <% days_of_week.each do |day| %>
       <div class="col-md-6 col-lg-4">
         <%= link_to day_workout_path(day: day), class: "text-decoration-none" do %>
-          <div class="card shadow-sm h-100 hover-shadow border-0">
-            <div class="card-body text-center">
-              <h5 class="card-title fw-semibold text-dark"><%= day %></h5>
+          <div class="card h-100 shadow-lg border-0 text-center hover-zoom transition-fast">
+            <div class="card-body d-flex align-items-center justify-content-center" style="min-height: 100px;">
+              <h5 class="card-title fw-bold text-dark m-0"><%= day %></h5>
             </div>
           </div>
         <% end %>
@@ -25,4 +32,20 @@
     <% end %>
   </div>
 </div>
+
+<!-- Optional Custom CSS for nicer hover -->
+<style>
+  .hover-zoom {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .hover-zoom:hover {
+    transform: scale(1.05);
+    background-color: #f8f9fa;
+  }
+
+  .transition-fast {
+    transition: all 0.2s ease-in-out;
+  }
+</style>
 

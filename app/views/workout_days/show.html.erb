@@ -1,28 +1,39 @@
 <div class="container mt-5 d-flex justify-content-center">
   <div class="card shadow-lg p-4 rounded-4" style="max-width: 800px; width: 100%;">
-    <h2 class="text-center mb-4 fw-bold text-uppercase text-primary">Select Exercises by Muscle Group</h2>
+    <h2 class="text-center mb-4 fw-bold text-uppercase text-primary">Customize Your Workout Day</h2>
 
-    <%= form_with model: @workout_day, url: workout_day_path(@workout_day), method: :patch do %>
+    <%= form_with model: @workout_day, url: workout_day_path(@workout_day), method: :patch, local: true do |form| %>
       
-      <div class="row gy-4">
-        <% @exercises.group_by(&:muscle_group).each do |muscle_group, exercises| %>
-          <div class="col-md-4">
-            <h4 class="text-center text-success fw-bold"><%= muscle_group %></h4>
-            <% exercises.each do |exercise| %>
-              <div class="form-check">
-                <%= check_box_tag "exercise_ids[]", exercise.id, @workout_day.exercises.include?(exercise), class: "form-check-input" %>
-                <%= label_tag "exercise_ids_#{exercise.id}", exercise.name, class: "form-check-label" %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
+      <div class="form-check form-switch mb-4">
+        <%= form.check_box :rest_day, class: "form-check-input", id: "rest_day_switch" %>
+        <%= form.label :rest_day, "Mark this as a Rest Day", class: "form-check-label fw-semibold", for: "rest_day_switch" %>
       </div>
+
+      <% unless @workout_day.rest_day %>
+        <h4 class="mb-3 text-center text-success">Select Exercises by Muscle Group</h4>
+        <div class="row gy-4">
+          <% @grouped_exercises.each do |muscle_group, exercises| %>
+            <div class="col-md-4">
+              <h5 class="text-center fw-bold text-secondary"><%= muscle_group.capitalize %></h5>
+              <% exercises.each do |exercise| %>
+                <div class="form-check">
+                  <%= check_box_tag "exercise_ids[]", exercise.id, @workout_day.exercises.include?(exercise), class: "form-check-input", id: "exercise_#{exercise.id}" %>
+                  <%= label_tag "exercise_#{exercise.id}", exercise.name, class: "form-check-label" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="alert alert-info mt-4 text-center fw-medium">
+          This day is marked as a <strong>Rest Day</strong>. No exercises selected.
+        </div>
+      <% end %>
 
       <div class="d-grid mt-4">
-        <%= submit_tag "Save Workout", class: "btn btn-warning btn-lg fw-bold text-white" %>
+        <%= form.submit "Save Workout", class: "btn btn-warning btn-lg fw-bold text-white" %>
       </div>
-    <% end %>
 
+    <% end %>
   </div>
 </div>
-
