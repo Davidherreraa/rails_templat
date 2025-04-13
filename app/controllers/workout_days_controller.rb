@@ -9,10 +9,10 @@ class WorkoutDaysController < ApplicationController
 
   def update
     @workout_day = current_user.workout_days.find(params[:id])
-    @workout_day.workouts.destroy_all
-    params[:exercise_ids]&.each do |id|
-      @workout_day.workouts.create(exercise_id: id)
-    end
-    redirect_to root_path, notice: "Workout updated for #{@workout_day.day}!"
+    @workout_day.exercise_ids = params[:exercise_ids] || []
+    redirect_to root_path(day: @workout_day.day), notice: "Exercises updated!"
+    puts "Selected exercise_ids: #{params[:exercise_ids]}"
+
   end
+  
 end

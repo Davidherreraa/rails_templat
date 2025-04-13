@@ -1,17 +1,28 @@
-<div class="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md">
-  <h1 class="text-3xl font-bold mb-6">Workout for <%= @workout_day.day %></h1>
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-lg p-4 rounded-4" style="max-width: 800px; width: 100%;">
+    <h2 class="text-center mb-4 fw-bold text-uppercase text-primary">Select Exercises by Muscle Group</h2>
 
-  <%= form_with model: @workout_day, url: workout_day_path(@workout_day), method: :patch do |f| %>
-    <div class="grid grid-cols-1 gap-4">
-      <% @exercises.each do |exercise| %>
-        <label class="flex items-center space-x-2">
-          <%= check_box_tag "exercise_ids[]", exercise.id, @workout_day.exercises.include?(exercise) %>
-          <span><%= exercise.name %></span>
-        </label>
-      <% end %>
-    </div>
-    <div class="mt-6">
-      <%= f.submit "Save Workout", class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" %>
-    </div>
-  <% end %>
+    <%= form_with model: @workout_day, url: workout_day_path(@workout_day), method: :patch do %>
+      
+      <div class="row gy-4">
+        <% @exercises.group_by(&:muscle_group).each do |muscle_group, exercises| %>
+          <div class="col-md-4">
+            <h4 class="text-center text-success fw-bold"><%= muscle_group %></h4>
+            <% exercises.each do |exercise| %>
+              <div class="form-check">
+                <%= check_box_tag "exercise_ids[]", exercise.id, @workout_day.exercises.include?(exercise), class: "form-check-input" %>
+                <%= label_tag "exercise_ids_#{exercise.id}", exercise.name, class: "form-check-label" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="d-grid mt-4">
+        <%= submit_tag "Save Workout", class: "btn btn-warning btn-lg fw-bold text-white" %>
+      </div>
+    <% end %>
+
+  </div>
 </div>
+

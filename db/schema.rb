@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_12_194003) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_12_235626) do
   create_table "exercises", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -46,6 +46,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_12_194003) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  create_table "workout_day_exercises", force: :cascade do |t|
+    t.integer "workout_day_id", null: false
+    t.integer "exercise_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_workout_day_exercises_on_exercise_id"
+    t.index ["workout_day_id"], name: "index_workout_day_exercises_on_workout_day_id"
+  end
+
   create_table "workout_days", force: :cascade do |t|
     t.string "day"
     t.integer "user_id", null: false
@@ -56,5 +65,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_12_194003) do
 
   add_foreign_key "questions", "users"
   add_foreign_key "sessions", "users"
+  add_foreign_key "workout_day_exercises", "exercises"
+  add_foreign_key "workout_day_exercises", "workout_days"
   add_foreign_key "workout_days", "users"
 end
