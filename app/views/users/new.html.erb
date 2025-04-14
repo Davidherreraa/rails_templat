@@ -1,24 +1,32 @@
-<h1>Sign Up</h1>
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="card shadow-lg p-4" style="min-width: 400px;">
+    <div class="card-body">
+      <h3 class="card-title mb-4 text-center">Create an Account</h3>
 
-<%= form_with model: @user, url: users_path, local: true do |f| %>
-  <div>
-    <%= f.label :email_address %>
-    <%= f.email_field :email_address %>
+      <%= form_with model: @user, url: users_path, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :email_address, "Email", class: "form-label" %>
+          <%= f.email_field :email_address, class: "form-control", required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :password, "Password", class: "form-label" %>
+          <%= f.password_field :password, class: "form-control", required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :password_confirmation, "Confirm Password", class: "form-label" %>
+          <%= f.password_field :password_confirmation, class: "form-control", required: true %>
+        </div>
+
+        <div class="d-grid">
+          <%= f.submit "Sign Up", class: "btn btn-success" %>
+        </div>
+      <% end %>
+
+      <div class="text-center mt-3">
+        <%= link_to "Already have an account? Sign in", new_session_path, class: "text-decoration-none" %>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <div>
-    <%= f.submit "Sign Up" %>
-  </div>
-<% end %>
-
-<%= link_to "Already have an account? Sign in", new_session_path %>
+</div>

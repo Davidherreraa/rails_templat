@@ -1,11 +1,31 @@
-<%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
-<%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
+<%= tag.div(flash[:alert], class: "alert alert-danger") if flash[:alert] %>
+<%= tag.div(flash[:notice], class: "alert alert-success") if flash[:notice] %>
 
-<%= form_with url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
-  <%= form.submit "Sign in" %>
-<% end %>
-<br>
+<h1 class="text-center mb-5 fw-bold mt-5" style="font-size: 2rem;"> ProgressTrack: Your Workout Evolution</h1>
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="card shadow-lg p-4" style="min-width: 350px;">
+    <div class="card-body">
+      <h3 class="card-title mb-4 text-center">Sign In</h3>
 
-<%= link_to "Forgot password?", new_password_path %>
+      <%= form_with url: session_path, html: { class: "needs-validation" } do |form| %>
+        <div class="mb-3">
+          <%= form.label :email_address, "Email", class: "form-label" %>
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", class: "form-control", placeholder: "Enter your email address", value: params[:email_address] %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :password, "Password", class: "form-label" %>
+          <%= form.password_field :password, required: true, autocomplete: "current-password", class: "form-control", placeholder: "Enter your password", maxlength: 72 %>
+        </div>
+
+        <div class="d-grid">
+          <%= form.submit "Sign in", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+      <div class="text-center mt-3">
+        <%= link_to "Forgot password?", new_password_path, class: "text-decoration-none" %>
+      </div>
+    </div>
+  </div>
+</div>
