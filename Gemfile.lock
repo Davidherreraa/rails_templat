@@ -466,7 +466,7 @@ DEPENDENCIES
   solid_cable
   solid_cache
   solid_queue
-  sqlite3 (~> 1.4)
+  sqlite3 (~> 1.7)
   stimulus-rails
   thruster
   turbo-rails

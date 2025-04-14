@@ -1,25 +1,32 @@
 default: &default
+  adapter: sqlite3 # Explicitly set for clarity; overridden in production
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  adapter: sqlite3
   database: db/development.sqlite3
 
 test:
   <<: *default
-  adapter: sqlite3
   database: db/test.sqlite3
-  
+
 production:
   primary:
     adapter: postgresql
     encoding: unicode
     database: <%= ENV['DATABASE_URL'] %>
     pool: <%= ENV['RAILS_MAX_THREADS'] || 5 %>
+    connect_timeout: 5 # Optional: PostgreSQL-specific timeout (in seconds)
   queue:
     adapter: postgresql
     encoding: unicode
     database: <%= ENV['DATABASE_URL'] %>
     pool: <%= ENV['RAILS_MAX_THREADS'] || 5 %>
+    connect_timeout: 5
+  cache:
+    adapter: postgresql
+    encoding: unicode
+    database: <%= ENV['DATABASE_URL'] %>
+    pool: <%= ENV['RAILS_MAX_THREADS'] || 5 %>
+    connect_timeout: 5
