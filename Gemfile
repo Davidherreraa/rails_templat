@@ -44,7 +44,7 @@ end
 
 # ✅ SQLite for local dev/test only
 group :development, :test do
-  gem "sqlite3", "~> 1.4"
+  gem "sqlite3", "~> 1.7"
 
   # Debugging
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
